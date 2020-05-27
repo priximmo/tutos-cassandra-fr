@@ -35,7 +35,7 @@ Rq : équilibre à trouver entre les 3 facteurs (notamment Consistence/Availabil
 
 
 <br>
-* la réponse BASE :
+* la réponse BASE : https://fr.wikipedia.org/wiki/Paxos_(informatique)
 <br>
 		* Basically Availabitlity : on répond à toutes les requêtes
 <br>
@@ -45,6 +45,19 @@ Rq : équilibre à trouver entre les 3 facteurs (notamment Consistence/Availabil
 
 Rq : approcher de la consistence avec un quorum
 
-Pas de transaction mais PAXOS Protocol
+<br>
+* Pas de transaction mais PAXOS Protocol
+		* protocoles de consensus pour système distribué faillible
+		* Rôles
+<br>
+				* Client : adresse des requêtes
+<br>
+				* Acceptor (Votants) : machine servant à établir le quorum
+<br>
+				* Proposer : interlocuteur du client
+<br>
+				* Learner : réalise la requête vérifiée auprès de Votants
+<br>
+				* Leader : Proposer unique pour éviter la concurence 
 
 
