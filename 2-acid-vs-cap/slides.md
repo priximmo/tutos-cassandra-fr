@@ -17,7 +17,7 @@
 		* Durabilité : 1 transaction terminée est pris en compte de manière permanente
 
 <br>
-* CAP Theorem ou Théorème de Brewer
+* CAP Theorem ou Théorème de Brewer : https://fr.wikipedia.org/wiki/Théorème_CAP
 <br>
 		* Consistence : même état sur tous les serveurs
 <br>
