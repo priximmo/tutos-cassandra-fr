@@ -30,6 +30,7 @@
 ```
 DESCRIBE KEYSPACES;
 CREATE KEYSPACE myks WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 2 };
+DESCRIBE KEYSPACE myks ;
 ```
 
 PS : CREATE KEYSPACE IF NOT EXISTS
@@ -41,6 +42,8 @@ PS : CREATE KEYSPACE IF NOT EXISTS
 ```
 USE myks;
 CREATE TABLE mytb (id int PRIMARY KEY, name text);
+DESCRIBE TABLES
+
 ```
 
 <br>

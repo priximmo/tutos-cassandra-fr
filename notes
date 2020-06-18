@@ -1,0 +1,40 @@
+
+
+ Cassandra utilise deux types de clés:
+
+    les clés de partition sont responsables de la distribution des données entre les nœuds
+    la Clustering Key est responsable du tri des données dans une partition 
+
+Une clé primaire est une combinaison de ceux-ci aux types. Le vocabulaire dépend de la combinaison:
+
+    clé primaire simple : seule la clé de partition, composée d'une colonne
+			PRIMARY KEY (key) ou  key int PRIMARY KEY
+    clé primaire composée : une clé de partition avec une ou plusieurs clés de clustering.
+			PRIMARY KEY (key1,key2) 
+    clé de partition composite : seule la clé de partition, composée de plusieurs colonnes
+			PRIMARY KEY ((key1,key2)) 
+    clé primaire composite et composée : une clé de partition composée de plusieurs colonnes et de plusieurs clés de clustering. 
+			 PRIMARY KEY ((key1,key2), (keyA,keyB)
+
+
+
+    A primary key uniquely identifies a row.
+    A composite key is a key formed from multiple columns.
+    A partition key is the primary lookup to find a set of rows, i.e. a partition.
+    A clustering key is the part of the primary key that isn't the partition key (and defines the ordering within a partition).
+
+Examples:
+
+    PRIMARY KEY (a): The partition key is a.
+    PRIMARY KEY (a, b): The partition key is a, the clustering key is b.
+    PRIMARY KEY ((a, b)): The composite partition key is (a, b).
+    PRIMARY KEY (a, b, c): The partition key is a, the composite clustering key is (b, c).
+    PRIMARY KEY ((a, b), c): The composite partition key is (a, b), the clustering key is c.
+    PRIMARY KEY ((a, b), c, d): The composite partition key is (a, b), the composite clustering key is (c, d).
+
+
+
+https://cassandra.apache.org/doc/latest/data_modeling/intro.html
+
+
+https://fr.slideshare.net/ArtemChebotko/using-the-chebotko-method-to-design-sound-and-scalable-data-models-for-apache-cassandra
