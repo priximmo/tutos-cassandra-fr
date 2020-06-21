@@ -1,0 +1,63 @@
+Vagrant.configure(2) do |config|
+  common = <<-SHELL
+  sudo apt install -y vim tree net-tools telnet git python3
+  sudo echo "autocmd filetype yaml setlocal ai ts=2 sw=2 et" > /home/vagrant/.vimrc
+  sudo echo "alias python=/usr/bin/python3" >> /home/vagrant/.bashrc
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sudo sh get-docker.sh
+  sudo usermod -aG docker vagrant
+  sudo service docker start
+  sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
+  sudo systemctl restart sshd
+  SHELL
+
+	config.vm.define "cass" do |control|
+		control.vm.hostname = "cass"
+	  control.vm.box = "ubuntu/bionic64"
+	  control.vm.box_url = "ubuntu/bionic64"
+		control.vm.network "private_network", ip: "192.168.111.102"
+		control.vm.provider "virtualbox" do |v|
+			v.customize [ "modifyvm", :id, "--cpus", "2" ]
+			v.customize [ "modifyvm", :id, "--memory", "2048" ]
+			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      			v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+			v.customize ["modifyvm", :id, "--name", "cass"]
+		end
+		control.vm.provision :shell, :inline => common
+    #control.vm.provision "shell", path: "install_cassandra.sh"
+	end
+
+	config.vm.define "cass2" do |control|
+		control.vm.hostname = "cass2"
+	  control.vm.box = "ubuntu/bionic64"
+	  control.vm.box_url = "ubuntu/bionic64"
+		control.vm.network "private_network", ip: "192.168.111.103"
+		control.vm.provider "virtualbox" do |v|
+			v.customize [ "modifyvm", :id, "--cpus", "2" ]
+			v.customize [ "modifyvm", :id, "--memory", "2048" ]
+			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      			v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+			v.customize ["modifyvm", :id, "--name", "cass2"]
+		end
+		control.vm.provision :shell, :inline => common
+    control.vm.provision "shell", path: "install_cassandra.sh"
+	end
+
+	config.vm.define "cass3" do |control|
+		control.vm.hostname = "cass3"
+	  control.vm.box = "ubuntu/bionic64"
+	  control.vm.box_url = "ubuntu/bionic64"
+		control.vm.network "private_network", ip: "192.168.111.104"
+		control.vm.provider "virtualbox" do |v|
+			v.customize [ "modifyvm", :id, "--cpus", "2" ]
+			v.customize [ "modifyvm", :id, "--memory", "2048" ]
+			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      			v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+			v.customize ["modifyvm", :id, "--name", "cass3"]
+		end
+		control.vm.provision :shell, :inline => common
+    control.vm.provision "shell", path: "install_cassandra.sh"
+	end
+
+end
+
