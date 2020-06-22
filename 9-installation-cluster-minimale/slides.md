@@ -45,7 +45,7 @@
 ```
 sudo service cassandra stop
 sudo rm -rf /var/lib/cassandra/data/system/*
-sudo vi /etc/cassandra/cassandra.yaml, setup the proper parameters
+sudo vim /etc/cassandra/cassandra.yaml
 sudo service cassandra start
 nodetool status
 ```

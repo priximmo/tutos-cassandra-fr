@@ -1,0 +1,42 @@
+version: '2'
+services:
+  cassandra:
+    image: docker.io/bitnami/cassandra:3-debian-10
+    ports:
+      - 7000:7000
+      - 9042:9042
+    expose:
+      - 7000
+      - 7001
+      - 7199
+      - 9042
+      - 9142
+    volumes:
+      - ./cassandra:/bitnami
+    environment:
+      - CASSANDRA_SEEDS=cassandra,cassandra2
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD_SEEDER=yes
+      - CASSANDRA_PASSWORD=cassandra
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+  cassandra2:
+    image: docker.io/bitnami/cassandra:3-debian-10
+    ports:
+      - 7001:7000
+      - 9043:9042
+    expose:
+      - 7000
+      - 7001
+      - 7199
+      - 9042
+      - 9142
+    volumes:
+      - ./cassandra2:/bitnami
+    environment:
+      - CASSANDRA_SEEDS=cassandra,cassandra2
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD=cassandra
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+
