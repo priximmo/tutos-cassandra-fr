@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   cassandra:
     image: docker.io/bitnami/cassandra:3-debian-10
