@@ -8,7 +8,7 @@
 <br>
 * utilisation du token ring pour assurer la consistence
 
-		* Consistency Level = nombre de réplicas qui répondent
+		* Consistency Level = nombre de réplicas qui répondent > s'applique à la session/client
 		* Réplication factor = nombre de réplicas
 
 <br>
@@ -62,7 +62,12 @@
 	* C2 demande la donnée à 1,5s > quorum non atteint pour la nlle valeur > retourne l'ancienne valeur 
 
 
-* connaitre la consistence
+------------------------------------------------------------------------------------------
+
+# CASSANDRA : Quorum et Consistency
+
+<br>
+* connaitre la consistence de la session CQLSH
 
 ```
 CONSISTENCY
@@ -75,6 +80,13 @@ CONSISTENCY ONE
 CONSISTENCY QUORUM
 ```
 
+* via le client (application) - exemple
+
+```
+QueryOptions qo = new QueryOptions().setConsistencyLevel(ConsistencyLevel.ALL);
+```
+
+<br>
 * définir le replication factor
 
 ```
@@ -82,13 +94,12 @@ CREATE KEYSPACE myks
 WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'dc1' : 3, 'dc2' : 2};
 ```
 
+<br>
 * pour modifier le RF
 
 ```
 ALTER KEYSPACE myks
 WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'dc1' : 2, 'dc2' : 2};
-```
-
 ```
 
 puis
