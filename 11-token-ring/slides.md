@@ -6,6 +6,8 @@
 
 
 <br>
+
+
 * Query modeling
 
 |		ID	| 	NOM			|		ADRESSE		|		ID_COMMANDE		|		ETC		|
@@ -15,6 +17,8 @@
 
 
 <br>
+
+
 * les clefs
 
     clé primaire simple : seule la clé de partition, composée d'une colonne
@@ -27,5 +31,7 @@
        PRIMARY KEY ((key1,key2), (keyA,keyB)
 
 <br>
+
+
 * Principes :
 	* clef de partition > fonction de hashage (inf 64 bits) > token > distribution dans le token ring

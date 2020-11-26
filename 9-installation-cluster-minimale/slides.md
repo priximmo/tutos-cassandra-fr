@@ -6,17 +6,25 @@
 
 
 <br>
+
+
 * nosql distribué = cluster facile à mettre en place (cf elasticsearch également)
 
 * attention : installation par défaut > listen sur 127.0.0.1/localhost
 
 <br>
+
+
 * peu recommandé de listen sur 0.0.0.0
 
 <br>
+
+
 * modification du seed provider
 
 <br>
+
+
 * penser aux ouvertures de ports si nécessaires :
 		* 9042 : client cqlsh
 		* 9160 : protocol Thrift, ancien mode de communicaiton
@@ -38,6 +46,8 @@
 
 
 <br>
+
+
 * changement de nom de cluster après premier démarrage
 
 * option 1 : via la conf de fichiers
@@ -51,6 +61,8 @@ nodetool status
 ```
 
 <br>
+
+
 * option 2 ! via le cqlsh
 
 ```

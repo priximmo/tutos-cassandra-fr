@@ -6,6 +6,8 @@
 
 
 <br>
+
+
 * /etc/init.d/cassandra
 
 ```
@@ -20,12 +22,16 @@ FD_LIMIT=100000
 ```
 
 <br>
+
+
 * /etc/cassandra/cassandra.yml : configuration de base
 		* cluster_name			: nom du cluster (important pour le rattachement)
 		* listen_address		: ip d'écoute (défaut localhost)
 		* listen_interfaces	: remplacement du listen_address par l'interface
 
 <br>
+
+
 * /etc/cassandra/jvm.options : paramètres de la jvm
 		* Xms/Xmx
 		* Garbage Collector
@@ -36,24 +42,32 @@ FD_LIMIT=100000
 # CASSANDRA : Répertoires et Fichiers
 
 
-<br> 
+<br>
+
+ 
 * /var/lib/cassandra/ : répertoires de datas
 		* data/ 				: les datafiles > SSTAbles
 		* commitlogs/		: fichiers de transactions (recovery)
 		* saved_caches/ : sauvegarde des keys et rows en cache
 
 <br>
+
+
 * les binaires principaux : répertoires bin/ (dépend de l'installation)
 		* cassandra 				: binaire principal
 		* cqlsh 						: client utilisant le langage cql
 		* nodetool 					: tâches de maintenance et d'administration
 
 <br>
+
+
 * autres binaires :
 		* cassandra-stress 	: outil de bench
 		* sstableXXX
 
 <br>
+
+
 * /usr/share/cassandra/lib/ : librairies 
 		* json-simple-1.1.jar
 		* metrics-jvm-3.1.5.jar
@@ -64,6 +78,8 @@ FD_LIMIT=100000
 
 
 <br>
+
+
 * autres fichiers 
 		* /etc/cassandra/cassandra-rackdc.properties 		: conf snitch GossipingPropertyFileSnitch
 		* /etc/cassandra/cassandra-topology.properties 	: topology rack/dc

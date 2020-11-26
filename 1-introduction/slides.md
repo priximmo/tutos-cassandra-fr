@@ -6,15 +6,21 @@
 
 
 <br>
+
+
 * moteur de bases de données NoSql
 
 <br>
+
+
 * NOSQL vs SQL = ACID vs CAP Theorem (Théorème de Brewer)
 		* Consistence
 		* Availability
 		* Partition tolérance
 
 <br>
+
+
 * origines : facebook
 
 * opensourcé en 2008
@@ -30,6 +36,8 @@
 		* Amazon DynamoDB
 
 <br>
+
+
 * système distribué :
 		* fault tolerant
 		* hautement scalable
@@ -41,6 +49,8 @@
 
 
 <br>
+
+
 Atouts :
 
 * réponse au besoin de scalabilité applicatif > BDD
@@ -65,6 +75,8 @@ Atouts :
 
 
 <br>
+
+
 Défauts :
 
 * pas ACID sur le principe > système distribué et répliqué

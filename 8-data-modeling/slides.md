@@ -6,13 +6,19 @@
 
 
 <br>
+
+
 * data modeling = modélisation de données
 
 <br>
+
+
 * différence importante entre sql et nosql
 		* modélisation/conception différente
 
 <br>
+
+
 DUPLICATION/DENORMALIZATION ???
 
 * normalisation >> dénormalisation
@@ -31,6 +37,8 @@ DUPLICATION/DENORMALIZATION ???
 
 
 <br>
+
+
 POURQUOI ?
 
 * hardware >> coûts sont faibles (iops / volumes / performances / carte réseau... )
@@ -44,6 +52,8 @@ POURQUOI ?
 * microservices >> le relationnel se fait au niveau des applicatifs
 
 <br>
+
+
 EVOLUTION DES ENJEUX
 
 * sql => moins d'écritures / pas de duplication 
@@ -53,6 +63,8 @@ EVOLUTION DES ENJEUX
 * anticipation des requêtes (filtre = where, tri = group/sort)
 
 <br>
+
+
 CONCRETEMENT
 
 * sql :  tables users + factures + commandes >> requête factures par users / commandes par users

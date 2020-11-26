@@ -5,6 +5,8 @@
 # CASSANDRA : CQLSH
 
 <br>
+
+
 * nodetool
 
 ```
@@ -21,11 +23,15 @@ nodetool version
 ```
 
 <br>
+
+
 * CQLSH = client de connexion à un moteur cassandra
 
 * CQLSH = python (installation de python > prérequis)
 
 <br>
+
+
 * configuration via le fichier cqlshrc > $CASSANDRA_HOME/conf/cqlshrc.sample
 
 ```
@@ -38,6 +44,8 @@ cqlsh --cqlshrc <file>
 		* user, tls...
 
 <br>
+
+
 * historique :
 		* $HOME/.cassandra/cqlsh_history
 		* nodetool.history
@@ -49,6 +57,8 @@ cqlsh --cqlshrc <file>
 
 
 <br>
+
+
 * de base :
 
 ```
@@ -56,6 +66,8 @@ cqlsh <ip> <port>
 ```
 
 <br>
+
+
 * quelques options :
 		* -h : help
 		* -C : mode couleur
@@ -67,6 +79,8 @@ cqlsh <ip> <port>
 		* --debug : mode debug
 
 <br>
+
+
 * les mots clefs principaux :
 		* SHOW : lister les objets
 		* DESCRIBE : détailler un objet

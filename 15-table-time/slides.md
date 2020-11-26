@@ -6,6 +6,8 @@
 
 
 <br>
+
+
 * création de la table
 
 ```
@@ -16,6 +18,8 @@ INSERT INTO utilisateurs_par_ville (alias, nom , ville ) VALUES ( 'bob', 'paul',
 ```
 
 <br>
+
+
 * affichage de la date d'écriture d'une valeur (hors clef primaire)
 
 ```
@@ -26,6 +30,8 @@ SELECT alias,nom,ville, writetime(ville) FROM utilisateurs_par_ville ;
 ```
 
 <br>
+
+
 * TTL en secondes
 
 ```

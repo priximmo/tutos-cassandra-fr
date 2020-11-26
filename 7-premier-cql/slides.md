@@ -6,15 +6,21 @@
 
 
 <br>
+
+
 * keyspaces (databases/schema) : conteneur de tables / objets
 		* replication factor
 		* strategie de réplication / SimpleStrategy (NetworkTopologyStrategy)
 
 
 <br>
+
+
 * tables : mise en forme des données lignes/colonnes - create/drop/alter/insert
 
 <br>
+
+
 * colonnes (champs) : caractéristiques d'une lignes avec un type (int, text...)
 
 
@@ -25,6 +31,8 @@
 
 
 <br>
+
+
 * création d'un keyspace
 
 ```
@@ -37,6 +45,8 @@ PS : CREATE KEYSPACE IF NOT EXISTS
 
 <br>
 
+
+
 * création d'une table
 
 ```
@@ -47,6 +57,8 @@ DESCRIBE TABLES
 ```
 
 <br>
+
+
 * insertion de données
 
 ```
@@ -56,6 +68,8 @@ INSERT INTO mytb (id, name) VALUES (2, 'pierre');
 ```
 
 <br>
+
+
 * requête
 
 ```

@@ -6,6 +6,8 @@
 
 
 <br>
+
+
 * counter = calcul sur la valeur précédente
 
 ```
@@ -17,6 +19,8 @@ SELECT * FROM utilisateurs_par_ville;
 ```
 
 <br>
+
+
 * timestamp
 
 ```
@@ -29,6 +33,8 @@ INSERT INTO utilisateurs_par_ville (alias , nom , ville , date_maj) VALUES ( 'xa
 # CASSANDRA : Counter & Unique ID
 
 <br>
+
+
 * uuid
 
 ```
@@ -37,6 +43,8 @@ INSERT INTO utilisateurs_par_ville (alias , nom , ville , id) VALUES ( 'xavki', 
 ```
 
 <br>
+
+
 * timeuuid
 
 ```

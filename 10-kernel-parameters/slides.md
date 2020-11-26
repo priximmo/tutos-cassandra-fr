@@ -6,6 +6,8 @@
 
 
 <br>
+
+
 * si NUMA (multisocket RHEL) > Non-uniform memory access > désactivation  zone_reclaim_mode
 
 ```
@@ -24,14 +26,20 @@ https://engineering.linkedin.com/performance/optimizing-linux-memory-management-
 
 
 <br>
+
+
 * modificaton de sysctl.conf
 
 <br>
+
+
 SOCKET TCP
 
 https://wwwx.cs.unc.edu/~sparkst/howto/network_tuning.php
 
 <br>
+
+
 * rmem : taille des tampons de réception utilisés par les sockets
 
 ```
@@ -40,6 +48,8 @@ net.core.rmem_default = 16777216
 ```
 
 <br>
+
+
 * wmem : la quantité maximale de trafic qui peut être envoyée via une connexion TCP avant que l'expéditeur ait besoin de recevoir un accusé de réception du destinataire
 
 ```
@@ -86,12 +96,16 @@ sudo sysctl -p /etc/sysctl.conf
 
 
 <br>
+
+
 * optimisation SSD
 
 https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/install/installRecommendSettings.html#OptimizeSSDs
 
 
 <br>
+
+
 *
 
 ```
@@ -103,6 +117,8 @@ vim /etc/security/limits.d/cassandra.conf
 ```
 
 <br>
+
+
 
 ```
 vim /etc/sysctl.conf
@@ -117,7 +133,9 @@ vim /etc/pam.d/su
 session    required   pam_limits.so
 ```
 
-<br> 
+<br>
+
+ 
 * suppression du swap
 
 ```
@@ -132,9 +150,13 @@ vim /etc/fstab #comment swap
 
 
 <br>
+
+
 * Changement de Garbage collector CMS > G1
 
 <br>
+
+
 * heap size (Xmx/Xms) : 1/4 à 1/2 de la ram
 
 

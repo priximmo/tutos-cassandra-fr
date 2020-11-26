@@ -7,6 +7,8 @@
 
 <br>
 
+
+
 * les clefs
 
     clé primaire simple : seule la clé de partition, composée d'une colonne
@@ -19,6 +21,8 @@
        PRIMARY KEY ((key1,key2), (keyA,keyB)
 
 <br>
+
+
 * création d'un keyspace et une table :
 
 ```
@@ -33,6 +37,8 @@ INSERT INTO utilisateurs_par_ville (alias, nom , ville ) VALUES ( 'xavki', 'xavi
 
 
 <br>
+
+
 * liste des éléments de la table
 
 ```
@@ -40,6 +46,8 @@ SELECT * FROM utilisateurs_par_ville;
 ```
 
 <br>
+
+
 * clause where > clef primaire
 
 ```
@@ -48,6 +56,8 @@ SELECT * FROM utilisateurs_par_ville WHERE nom = 'xavier';
 ```
 
 <br>
+
+
 * suppression de la table
 
 ```
@@ -72,6 +82,8 @@ SELECT * FROM utilisateurs_par_ville where nom = 'xavki' GROUP BY alias  ;
 ```
 
 <br>
+
+
 * clef primaire à plusieurs colonne (partionnement et clustering)
 
 ```
