@@ -1,0 +1,16 @@
+http:
+  address: 0.0.0.0:4196
+
+input:
+  cassandra:
+    addresses:
+      - cassandra1:9042
+      - cassandra2:9042
+      - cassandra3:9042
+    query:
+      'SELECT * FROM xavki.T1;'
+output:
+  file:
+    path: /tmp/xavki.txt
+    codec: lines
+

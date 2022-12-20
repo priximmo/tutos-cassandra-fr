@@ -1,0 +1,24 @@
+http:
+  address: 0.0.0.0:4196
+
+input:
+  generate:
+    count: 1000000
+    interval: ''
+    mapping: |
+      root.id = uuid_v4()
+      root.message = \"Je suis un message \" + random_int().string()
+
+output:
+  cassandra:
+    addresses:
+      - cassandra1:9042
+      - cassandra2:9042
+      - cassandra3:9042
+    query: 'INSERT INTO xavki.T1 (uid, text) VALUES (?, ?)'
+    args_mapping: |
+      root = [
+        this.id,
+        this.message,
+      ]
+

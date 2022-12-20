@@ -6,9 +6,7 @@
 
 <br>
 
-* pas évident de trouver des informations synthétiques
-
-* que se passe-t-il au bout de ça ?
+* que se passe-t-il au niveau du worker ?
 
 		client > coordinateur > worker > coordinateur > client
 
