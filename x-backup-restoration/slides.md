@@ -2,79 +2,50 @@
 %author: xavki
 
 
-# CASSANDRA : Le Read Path
+# CASSANDRA : Backup à partir d'un snapshot
 
 <br>
 
-* que se passe-t-il au niveau du worker ?
+sudo mkdir -p /srv/cassandra/
+sudo chmod 777 -R /srv/
+sudo apt-get install -y nfs-kernel-server 2>&1 > /dev/null
+sudo echo "/srv/cassandra 192.168.12.0/24(rw,sync,no_root_squash,no_subtree_check)">/etc/exports
+sudo systemctl restart nfs-server rpcbind
+sudo exportfs -a
 
-		client > coordinateur > worker > coordinateur > client
+sudo apt install -y nfs-common
+sudo mkdir -p /data/backups
+echo "192.168.12.103:/srv/cassandra /data/backups  nfs defaults 0  0" | sudo tee -a /etc/fstab
+sudo mount -a
 
-------------------------------------------------------------------------
-
-# CASSANDRA : Le Read Path
-
-<br>
-
-* différents outils entrent en compte :
-
-		* memtables
-
-		* bloom filter
-
-		* row cache
-
-		* key cache
+mkdir /data/backups/$(hostname)
 
 
-------------------------------------------------------------------------
+benthos -c cassandra_sample.yml
 
-# CASSANDRA : Le Read Path
+nodetool snapshot -t xavki_now xavki
+nodetool listsnapshots
 
-<br>
+```
+cp -r /var/lib/cassandra/data/xavki/t1-*/snapshots/xavki_now/* /data/backups/cassandra1/
+```
 
-Première étape : la réponse rapide
+nodetool clearsnapshot -t xavki_now
 
-		* la clef se trouve-elle en memtables (mémoire) ?
+```
+cqlsh $(hostname -I | awk '{print $2}') -e "drop table xavki.t1;"
+cqlsh $(hostname -I | awk '{print $2}') -e "select count(*) from xavki.t1;"
+```
 
-<br>
+rm -rf /var/lib/cassandra/data/xavki/*
+systemctl stop cassandra
+ps aux | grep java
 
-		* ou peut être se trouve-t-elle dans un premier cache
-			le row cache ? (information complète key + datas)
-				* optionnel
-				* hors heap (mémoire jvm)	
-
-------------------------------------------------------------------------
-
-# CASSANDRA : Le Read Path
-
-<br>
-
-Deuxième étape : un peu moins mais toujours très efficace
-
-		* la clef est elle référencée dans le bloom filter ?
-
-		* ou est-elle référence dans le key cache ?
-				* juste la clef de partition
-				* sans les datas (par défaut en heap)
-				* reste optionnel
-
-		* si oui cassandra va directement au compression offset
-				* permet l'accès direct aux sstables (données sur disque)	
+cqlsh $(hostname -I | awk '{print $2}') < /data/backups/cassandra1/schema.cql
 
 
-------------------------------------------------------------------------
+cp /data/backups/cassandra1/* /var/lib/cassandra/data/xavki/t1-*/
 
-# CASSANDRA : Le Read Path
 
-<br>
-
-Troisième étape : longue
-
-		* pas de key cache
-
-		* trouver les partitions summary
-
-		* indexation des partitions
-
-		* accès au sstables sur disque
+nodetool repair --full
+cqlsh $(hostname -I | awk '{print $2}') -e "select count(*) from xavki.t1;"
