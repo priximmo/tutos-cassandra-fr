@@ -1,0 +1,94 @@
+Vagrant.configure(2) do |config|
+
+	# before you must install these plugins to speed up vagrant provisionning
+  # vagrant plugin install vagrant-faster
+  # vagrant plugin install vagrant-cachier
+
+  config.cache.auto_detect = true
+	# Set some variables
+  etcHosts = ""
+  cassandra = ""
+  monitoring = ""
+  prometheus = ""
+
+  # Check ingress controller
+  case ARGV[0]
+    when "provision", "up"
+
+    print "Do you want to install cassandra (yes/no) ?\n"
+    cassandra = STDIN.gets.chomp
+    print "\n"
+
+    if cassandra == "yes"
+      print "Do you want to install monitoring (yes/no) ?\n"
+      monitoring = STDIN.gets.chomp
+      print "\n"
+    end
+
+
+  end
+
+	# some settings for common server (not for haproxy)
+  common = <<-SHELL
+  sudo apt update -qq 2>&1 >/dev/null
+  sudo apt install -y -qq curl software-properties-common git vim tree net-tools telnet git 2>&1 >/dev/null
+  sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
+  sudo systemctl restart sshd
+  SHELL
+
+  #config.vm.box = "debian/bullseye64"
+  #config.vm.box_url = "debian/bullseye64"
+	config.vm.box = "ubuntu/focal64"
+	config.vm.box_url = "ubuntu/focal64"
+
+
+	# set servers list and their parameters
+	NODES = [
+  	{ :hostname => "cassandra1", :ip => "192.168.12.100", :cpus => 4, :mem => 2048, :type => "cassandra" },
+  	{ :hostname => "cassandra2", :ip => "192.168.12.101", :cpus => 4, :mem => 2048, :type => "cassandra" },
+  	{ :hostname => "cassandra3", :ip => "192.168.12.102", :cpus => 4, :mem => 2048, :type => "cassandra" },
+  	{ :hostname => "cassexternal", :ip => "192.168.12.103", :cpus => 4, :mem => 2048, :type => "external" }
+	]
+
+	# define /etc/hosts for all servers
+  NODES.each do |node|
+			etcHosts += "echo '" + node[:ip] + "   " + node[:hostname] + "'>> /etc/hosts" + "\n"
+  end #end NODES
+
+	# run installation
+  NODES.each do |node|
+    config.vm.define node[:hostname] do |cfg|
+			cfg.vm.hostname = node[:hostname]
+      cfg.vm.network "private_network", ip: node[:ip]
+      cfg.vm.provider "virtualbox" do |v|
+				v.customize [ "modifyvm", :id, "--cpus", node[:cpus] ]
+        v.customize [ "modifyvm", :id, "--memory", node[:mem] ]
+        v.customize [ "modifyvm", :id, "--natdnshostresolver1", "on" ]
+        v.customize [ "modifyvm", :id, "--natdnsproxy1", "on" ]
+        v.customize [ "modifyvm", :id, "--name", node[:hostname] ]
+				v.customize [ "modifyvm", :id, "--ioapic", "on" ]
+        v.customize [ "modifyvm", :id, "--nictype1", "virtio" ]
+      end #end provider
+			
+			#for all
+      cfg.vm.provision :shell, :inline => etcHosts
+			cfg.vm.provision :shell, :inline => common
+      cfg.vm.provision :shell, :path => "install_node_exporter.sh"
+
+      if cassandra == "yes"
+        if node[:type] == "cassandra"
+          cfg.vm.provision :shell, :path => "install_cassandra.sh", :args => monitoring
+			  end
+			end
+      if node[:type] == "external"
+          cfg.vm.provision :shell, :path => "install_external.sh", :args => monitoring
+        if monitoring == "yes"
+          cfg.vm.provision :shell, :path => "install_prometheus.sh"
+			  end
+      end
+    end # end config
+  end # end nodes
+
+end 
+
+

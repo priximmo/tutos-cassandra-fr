@@ -1,0 +1,12 @@
+version: '3'
+services:
+  cassandra_exporter:
+    image: criteord/cassandra_exporter:2.3.8
+    ports:
+    - 9091:9091
+    environment:
+    - CASSANDRA_EXPORTER_CONFIG_host=192.168.12.100:7199
+    - CASSANDRA_EXPORTER_CONFIG_listenPort=9091
+      #- JVM_OPTS="-XX:MaxRAMFraction=2 -XX:+AlwaysPreTouch"
+      #-Dorg.slf4j.simpleLogger.showDateTime=true"
+      # -Dorg.slf4j.simpleLogger.dateTimeFormat=\"yyyy-MM-dd'T'HH:mm:ss\" -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=7199 -Dcom.sun.management.jmxremote.local.only=false -Dnetworkaddress.cache.ttl=15"
